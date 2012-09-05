@@ -8,12 +8,23 @@ module FluentCasualAgent
     }
 
     def run(target)
-      open("| tail -f #{target[:path]}").each do |l|
-        l = unescape_entity(l)
-        l = strip_ansi_sequence(l)
-        l = strip_eof(l)
-        FluentCasualAgent.channel << "#{target[:tag]},#{l}"
+      path = target[:path]
+      tag = target[:tag]
+      separator = ','
+
+      raise FluentCasualAgent::Error, "#{path} is not exists!" unless File.exist?(path)
+      raise FluentCasualAgent::Error, "#{tag} contains `#{separator}`. you should remove." if tag.index(separator)
+
+      open("| tail -f #{path}").each do |line|
+        value = converted_str_for_logging(line)
+        FluentCasualAgent.channel << "#{tag}#{separator}#{value}"
       end
+    end
+
+    def converted_str_for_logging(str)
+      str = unescape_entity(str)
+      str = strip_ansi_sequence(str)
+      strip_eof(str)
     end
 
     private

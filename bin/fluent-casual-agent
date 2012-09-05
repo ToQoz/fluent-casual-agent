@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-# TODO
-# enable to specify another name configuration file by option.
-
 require "slop"
 argv = ARGV.dup
 slop = Slop.new(:strict => true, :help => true)
@@ -24,4 +21,4 @@ $LOAD_PATH.unshift File.join(root, 'config')
 require "fluent-casual-agent"
 require "config"
 
-FluentCasualAgent.run(options)
+FluentCasualAgent.run

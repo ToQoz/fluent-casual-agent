@@ -7,8 +7,8 @@ module FluentCasualAgent
     attr_accessor :host, :port
 
     def run
-      self.host = FluentCasualAgent.config.host
-      self.port = FluentCasualAgent.config.port
+      self.host = FluentCasualAgent.config.host || '0.0.0.0'
+      self.port = FluentCasualAgent.config.port || '24224'
 
       FluentCasualAgent.channel.subscribe do |msg|
         tag, *value_list = msg.split(",")

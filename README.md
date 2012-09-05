@@ -3,7 +3,7 @@
 ```sh
 # use ruby1.9.3
 $ bundle install --path=vendor/bundles
-$ bundle exec bin/fluent-casual-agent -t #{target_file_path} -h #{host} -p #{port}
+$ bundle exec bin/fluent-casual-agent
 ```
 
 ## Configuration

@@ -16,12 +16,19 @@ end
 module FluentCasualAgent
   extend self
 
+  class Error < StandardError; end
+
   def run(options = {})
     Thread.abort_on_exception = true
+
+    unless self.config.targets && self.config.targets.size > 0
+      raise self::Error, "target filepath for tail is blank in configuration file." 
+    end
+
     EM.run do
-      FluentCasualAgent.config.targets.each { |t|
+      self.config.targets.each do |t|
         EM.defer { Tail.run(t) }
-      }
+      end
       EM.defer { Agent.run() }
     end
   end
