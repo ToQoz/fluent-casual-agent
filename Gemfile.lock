@@ -1,0 +1,22 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    configatron (2.9.1)
+      yamler (>= 0.1.0)
+    eventmachine (0.12.10)
+    fluent-logger (0.4.3)
+      msgpack (~> 0.4.4)
+      yajl-ruby (~> 1.0)
+    msgpack (0.4.7)
+    slop (3.3.3)
+    yajl-ruby (1.1.0)
+    yamler (0.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  configatron
+  eventmachine
+  fluent-logger
+  slop

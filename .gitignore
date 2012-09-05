@@ -1,0 +1,4 @@
+/vendor/bundles/*
+/.bundle
+
+!.gitkeep

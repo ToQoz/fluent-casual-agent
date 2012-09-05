@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+# TODO
+# enable to specify another name configuration file by option.
+
+require "slop"
+argv = ARGV.dup
+slop = Slop.new(:strict => true, :help => true)
+slop.banner "$ fluent-casual-agent [options]"
+
+begin
+  slop.parse!(argv)
+rescue => e
+  puts e
+  exit!
+end
+options = slop.to_hash
+options.delete(:help)
+
+root = File.expand_path("../..", __FILE__)
+$LOAD_PATH.unshift File.join(root, 'lib')
+$LOAD_PATH.unshift File.join(root, 'config')
+
+require "fluent-casual-agent"
+require "config"
+
+FluentCasualAgent.run(options)
