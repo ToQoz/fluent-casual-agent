@@ -4,6 +4,7 @@ require "slop"
 argv = ARGV.dup
 slop = Slop.new(:strict => true, :help => true)
 slop.banner "$ fluent-casual-agent [options]"
+slop.on :c, :conf_file, "configuration file (default is config/config.rb)"
 
 begin
   slop.parse!(argv)
@@ -13,12 +14,13 @@ rescue => e
 end
 options = slop.to_hash
 options.delete(:help)
+options[:conf_file] ||= "config/config.rb"
 
 root = File.expand_path("../..", __FILE__)
+$LOAD_PATH.unshift root
 $LOAD_PATH.unshift File.join(root, 'lib')
-$LOAD_PATH.unshift File.join(root, 'config')
 
 require "fluent-casual-agent"
-require "config"
+require options[:conf_file]
 
 FluentCasualAgent.run

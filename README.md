@@ -3,7 +3,10 @@
 ```sh
 # use ruby1.9.3
 $ bundle install --path=vendor/bundles
+# configuration file is config/config.rb if you don't specify.
 $ bundle exec bin/fluent-casual-agent
+# specify configuration file
+# $ bundle exec bin/fluent-casual-agent -c config/foo_app_conf.rb
 ```
 
 ## Configuration
