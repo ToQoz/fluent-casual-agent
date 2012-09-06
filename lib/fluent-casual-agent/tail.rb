@@ -12,8 +12,8 @@ module FluentCasualAgent
       tag = target[:tag]
       separator = ','
 
-      raise FluentCasualAgent::Error, "#{path} is not exists!" unless File.exist?(path)
-      raise FluentCasualAgent::Error, "#{tag} contains `#{separator}`. you should remove." if tag.index(separator)
+      raise Error, "#{path} is not exists!" unless File.exist?(path)
+      raise Error, "#{tag} contains `#{separator}`. you should remove." if tag.index(separator)
 
       open("| tail -f #{path}").each do |line|
         value = converted_str_for_logging(line)

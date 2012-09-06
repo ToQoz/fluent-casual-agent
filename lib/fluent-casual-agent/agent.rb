@@ -4,12 +4,7 @@ module FluentCasualAgent
   module Agent
     extend self
 
-    attr_accessor :host, :port
-
     def run
-      self.host = FluentCasualAgent.config.host || '0.0.0.0'
-      self.port = FluentCasualAgent.config.port || '24224'
-
       FluentCasualAgent.channel.subscribe do |msg|
         tag, *value_list = msg.split(",")
         value = value_list.join(",")
@@ -22,5 +17,14 @@ module FluentCasualAgent
     def logger
       @logger ||= Fluent::Logger::FluentLogger.new(nil, host: host, port: port)
     end
+
+    def host
+      FluentCasualAgent.config.host
+    end
+
+    def port
+      FluentCasualAgent.config.port
+    end
+
   end
 end
