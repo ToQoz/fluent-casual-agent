@@ -1,6 +1,4 @@
 FluentCasualAgent.configure do |config|
-  config.host = '0.0.0.0'         # host for fluentd
-  config.port = '24224'           # port for fluentd
   config.targets = [              # target info list for logging
     {
       path: "/var/log/nginx.log", # filepath for tail -f
@@ -8,8 +6,12 @@ FluentCasualAgent.configure do |config|
     }, 
     { path: "/var/log/mongodb.log", tag: "mongo" }
   ]
-  config.observer do |o|
-    o.interval = 180 # 180 second
+  config.network do |n|
+    n.host = '0.0.0.0' # host for fluentd
+    n.port = '24224'   # port for fluentd
+    n.observer do |o|
+      o.interval = 180 # 180 second
+    end
   end
   config.notifications do |n|
     n.irc do |i|

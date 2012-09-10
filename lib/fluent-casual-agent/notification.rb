@@ -4,6 +4,12 @@ module FluentCasualAgent
   module Notification
     extend self
 
+    def run
+      FluentCasualAgent.notify_channel.subscribe do |msg|
+        push msg
+      end
+    end
+
     def push(msg)
       IRC.push msg
     end
@@ -12,6 +18,7 @@ module FluentCasualAgent
       extend self
 
       def push(msg)
+        puts msg
         CarrierPigeon.send(opts msg) unless config.nil?
       end
 

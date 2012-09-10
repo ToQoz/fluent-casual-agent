@@ -5,7 +5,7 @@ module FluentCasualAgent
     extend self
 
     def run
-      FluentCasualAgent.channel.subscribe do |msg|
+      FluentCasualAgent.log_channel.subscribe do |msg|
         tag, *value_list = msg.split(",")
         value = value_list.join(",")
 
@@ -15,15 +15,7 @@ module FluentCasualAgent
     end
 
     def logger
-      @logger ||= Fluent::Logger::FluentLogger.new(nil, host: host, port: port)
-    end
-
-    def host
-      FluentCasualAgent.config.host
-    end
-
-    def port
-      FluentCasualAgent.config.port
+      @logger ||= Fluent::Logger::FluentLogger.new(nil, host: Network.host, port: Network.port)
     end
 
   end

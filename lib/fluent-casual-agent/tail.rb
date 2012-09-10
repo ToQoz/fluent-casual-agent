@@ -17,7 +17,7 @@ module FluentCasualAgent
 
       open("| tail -f #{path}").each do |line|
         value = converted_str_for_logging(line)
-        FluentCasualAgent.channel << "#{tag}#{separator}#{value}"
+        FluentCasualAgent.log_channel << "#{tag}#{separator}#{value}"
       end
     end
 
